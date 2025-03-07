@@ -19,3 +19,7 @@ async def on_message(message: cl.Message):
     for response in llm_response:
         await response_msg.stream_token(response.content)
     await response_msg.send()
+
+if __name__ == "__main__":
+    from chainlit.cli import run_chainlit
+    run_chainlit(__file__)
