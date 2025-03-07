@@ -5,6 +5,15 @@
 
 
 ## How to start?
+
+### Create .env file in the root
+```
+AZURE_OPENAI_API_KEY=
+AZURE_OPENAI_ENDPOINT=
+OPENAI_API_VERSION=
+```
+
+### Start the app
 ```
 chainlit run app.py -w  
 ```
