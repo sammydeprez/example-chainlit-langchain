@@ -5,12 +5,17 @@ llm = AzureChatOpenAI(model="gpt-4o-mini")
 
 @cl.on_message
 async def on_message(message: cl.Message):
+
+    chat_conversation = cl.chat_context.to_openai()
     
-    llm_response = llm.invoke(cl.chat_context.to_openai())
-    response_msg = cl.Message(content=llm_response.content)
+    # Sync
+    # llm_response = llm.invoke(chat_conversation)
+    # response_msg = cl.Message(content=llm_response.content)
+    # await response_msg.send()
+
+    # Async
+    response_msg = cl.Message(content="")
+    llm_response = llm.stream(input = chat_conversation)
+    for response in llm_response:
+        await response_msg.stream_token(response.content)
     await response_msg.send()
-
-
-if __name__ == "__main__":
-    from chainlit.cli import run_chainlit
-    run_chainlit(__file__)
